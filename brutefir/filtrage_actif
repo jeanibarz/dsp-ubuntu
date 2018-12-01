@@ -1,0 +1,55 @@
+## DEFAULT GENERAL SETTINGS ##
+
+float_bits: 32;             # internal floating point precision
+sampling_rate: 44100;       # sampling rate in Hz of audio interfaces
+filter_length: 32768;       # length of filters
+
+
+## COEFF DEFAULTS ##
+
+#coeff {
+#	format: "TEXT";     # file format
+#	attenuation: 0.0;   # attenuation in dB
+#	blocks: -1;         # how long in blocks
+#	skip: 0;            # how many bytes to skip
+#	shared_mem: false;  # allocate in shared memory
+#};
+
+
+## INPUT DEFAULTS ##
+
+input "left_in", "right_in" {
+	device: "jack" {};  # module and parameters to get audio
+	sample: "AUTO"; # sample format
+	channels: 2/0,1;    # number of open channels / which to use
+	delay: 0,0;         # delay in samples for each channel
+};
+
+
+## OUTPUT DEFAULTS ##
+
+output "left_out", "right_out" {
+
+	device: "jack" {};  # module and parameters to put audio
+	sample: "AUTO";   # sample format
+	channels: 2/0,1;    # number of open channels / which to use
+	delay: 0,0;         # delay in samples for each channel
+};
+
+
+## FILTER DEFAULTS ##
+
+filter "left" {
+	from_inputs: "left_in";
+	to_outputs: "left_out";
+	coeff: -1;
+	process: 0;
+};
+
+filter "right" {
+	from_inputs: "right_in";
+	to_outputs: "right_out";
+	coeff: -1;
+	process: 0;
+};
+
